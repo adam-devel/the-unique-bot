@@ -1,4 +1,4 @@
-import { initializeApp, credential, firestore } from 'firebase-admin';
+import { initializeApp, credential, firestore, ServiceAccount } from 'firebase-admin';
 import { logger } from '../lib/log';
 import {
    ServerId,
@@ -14,9 +14,10 @@ import { Bijection } from '../lib/Bijection';
 import { converter } from './utils';
 
 // firebase
+import { FIREBASE_SECRET } from '../.secret.json';
 const app = initializeApp({
    databaseURL: 'https://the-unique-bot.firebaseio.com',
-   credential: credential.cert(require('../../.secret.json').FIREBASE_SECRET),
+   credential: credential.cert(FIREBASE_SECRET as ServiceAccount),
 });
 const ServerCollection = firestore(app).collection('servers');
 

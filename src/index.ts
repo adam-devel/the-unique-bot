@@ -5,7 +5,7 @@ import { joke, compliment, purge, populate, kick } from './commands/commands';
 import { logger } from './lib/log';
 import { ChannelPropery } from './firestore/types';
 // Envirenment Variables
-export const { DISCORD_SECRET } = require('../.secret.json');
+import { DISCORD_SECRET } from './.secret.json';
 
 const { info } = logger('Main');
 

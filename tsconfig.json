@@ -5,6 +5,7 @@
       "lib": ["ES2017"],
       "moduleResolution": "node",
       "esModuleInterop": true,
+      "resolveJsonModule": true,
       "rootDir": "src/",
       "outDir": "dist/",
       "inlineSourceMap": true,

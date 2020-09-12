@@ -4,7 +4,7 @@ import { logger } from '../lib/log';
 import { sample } from 'lodash';
 import c from '../lib/compliment';
 import { get } from '../firestore/Configuration';
-
+import { PIXABAY_SECRET } from '../.secret.json';
 const phin = require('phin');
 const { error } = logger('Command');
 
