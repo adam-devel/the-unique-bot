@@ -1,0 +1,1 @@
+the spaghetti code of a simple discord bot

@@ -1,0 +1,44 @@
+{
+   "name": "the-unique-bot",
+   "version": "1.0.0",
+   "description": "a discord bot",
+   "main": "dist/index",
+   "scripts": {
+      "prettify": "prettier --write './src/**/*.ts'",
+      "build": "tsc",
+      "build:watch": "tsc --watch",
+      "start": "node --optimize_for_size .",
+      "start:demon": "nodemon --optimize_for_size",
+      "debug": "npx node --inspect .",
+      "debug:demon": "nodemon --inspect ."
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/MoussaAdam/the-unique-bot.git"
+   },
+   "author": "adam",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/MoussaAdam/the-unique-bot/issues"
+   },
+   "homepage": "https://github.com/MoussaAdam/the-unique-bot#readme",
+   "dependencies": {
+      "@firebase/app-types": "^0.6.1",
+      "firebase-admin": "^8.13.0",
+      "ansi-colors": "^4.1.1",
+      "lodash": "^4.17.20",
+      "phin": "^3.5.0",
+      "discord.js": "^12.3.1",
+      "dotenv": "^8.2.0",
+      "knope": "^1.1.2"
+   },
+   "engines": {},
+   "devDependencies": {
+      "@types/lodash": "^4.14.161",
+      "@types/node": "^14.6.4",
+      "nodemon": "^2.0.4",
+      "prettier": "^2.1.1",
+      "ts-node": "^9.0.0",
+      "typescript": "^3.9.7"
+   }
+}

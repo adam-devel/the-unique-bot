@@ -1,0 +1,5 @@
+.*
+!.gitignore
+!.prettierc
+node_modules
+dist
