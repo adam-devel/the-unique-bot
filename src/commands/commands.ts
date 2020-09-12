@@ -4,6 +4,7 @@ import { logger } from '../lib/log';
 import { sample } from 'lodash';
 import c from '../lib/compliment';
 import { get } from '../firestore/Configuration';
+import { encode } from 'querystring';
 import { PIXABAY_SECRET } from '../.secret.json';
 const phin = require('phin');
 const { error } = logger('Command');
@@ -79,6 +80,24 @@ export const populate: Command = {
             }
          });
       });
+   },
+};
+export const image: Command = {
+   name: 'image',
+   desc: '',
+   keywords: ['image'],
+   privileges: [],
+   run(_, { channel }: Message) {
+      let query = '';
+      while (_.anymore()) query += _.step();
+      phin({
+         url: `https://pixabay.com/api/?key=${PIXABAY_SECRET}&${encode({ q:query })}&per_page=3 `,
+         parse: 'json',
+      })
+         .then((res) => {
+            channel.send({ files: [res.body.hits[0].webformatURL]});
+         })
+         .catch((e) => error(`image: ${e}`));
    },
 };
 

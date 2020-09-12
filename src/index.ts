@@ -1,7 +1,7 @@
 import * as templates from './template/index';
 import { get } from './firestore/Configuration';
 import { Manager } from './commands/Manager';
-import { joke, compliment, purge, populate, kick } from './commands/commands';
+import { joke, compliment, purge, populate, kick, image } from './commands/commands';
 import { logger } from './lib/log';
 import { ChannelPropery } from './firestore/types';
 // Envirenment Variables
@@ -25,6 +25,7 @@ Bot.register(compliment);
 Bot.register(purge);
 Bot.register(populate);
 Bot.register(kick);
+Bot.register(image);
 // Welcome New Members
 Bot.on('guildMemberAdd', (member) => {
    get(member.guild).then((guild) => {
