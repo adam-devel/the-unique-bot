@@ -15,7 +15,7 @@ export function channel(channel: TextChannel) {
 }
 export function member(member: GuildMember | PartialGuildMember) {
    return {
-      welcome(): MessageEmbed {
+      get welcome(): MessageEmbed {
          const { user, guild } = member;
          const { owner } = guild;
          //const admins = guild.roles.find(role => /admin(istrator)?s?|mod(erator)?s?/i.test(role.name)).members;
