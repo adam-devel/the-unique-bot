@@ -42,7 +42,14 @@ Bot.on('message', (message) => {
    // confession management
    if (message.author.bot) {
       return;
-      // ! this is duplicated ./src/commands/Manager.ts:18
+      // ! this is duplicated in ./src/commands/Manager.ts:18
+   }
+   const { channel, author } = message;
+   message.author;
+   if (channel.type === 'dm') {
+      const guilds = Bot.guilds.cache.array().map((g) => g.members.cache.has(author.id));
+      if ((guilds.length = 0)) return;
+      channel.send(guilds.map((g, i) => `${i + 1}- g.name`));
    }
    get(message.guild).then((guild) => {
       guild.ifHasText(ChannelPropery.Job.Confession, (channel) => {
