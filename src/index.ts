@@ -19,7 +19,7 @@ Bot.once('ready', () => {
 });
 
 // register commands
-info('commands registered');
+info('registering commands');
 Bot.register(joke);
 Bot.register(compliment);
 Bot.register(purge);
