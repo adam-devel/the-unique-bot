@@ -6,6 +6,7 @@ import { logger } from './lib/log';
 import { ChannelPropery } from './firestore/types';
 // Envirenment Variables
 import { DISCORD_SECRET } from './.secret.json';
+import { Guild } from 'discord.js';
 
 const { info } = logger('Main');
 
@@ -38,23 +39,54 @@ Bot.on('guildMemberAdd', (member) => {
    });
 });
 
+const pending: Map<string, { guilds: Guild[]; content: string }> = new Map();
 Bot.on('message', (message) => {
    // confession management
+   // ! need serious refactoring
    if (message.author.bot) {
       return;
       // ! this is duplicated in ./src/commands/Manager.ts:18
    }
+
+   let guild = null;
    const { channel, author } = message;
-   message.author;
    if (channel.type === 'dm') {
-      const guilds = Bot.guilds.cache.array().map((g) => g.members.cache.has(author.id));
-      if ((guilds.length = 0)) return;
-      channel.send(guilds.map((g, i) => `${i + 1}- g.name`));
+      if (pending.has(author.id)) {
+         let idx = parseInt(message.content);
+         if (isNaN(idx)) {
+            channel.send(`your choice is not a number, choose again please`);
+            return;
+         }
+         const { guilds, content } = pending.get(author.id);
+         if (!(--idx in guilds)) {
+            channel.send('your choice is out of range');
+            return;
+         }
+         guild = guilds[idx];
+         message.content = content;
+      } else {
+         const guilds = Bot.guilds.cache.array().filter((g) => g.members.cache.has(author.id));
+         if (guilds.length == 0) return;
+         if (guilds.length == 1) {
+            guild = guilds[0];
+         } else {
+            channel.send(guilds.map((g, i) => `${i + 1}- ${g.name}`));
+            channel.send('choose a server to confess to: ');
+            pending.set(author.id, { guilds, content: message.content });
+            return;
+         }
+      }
+   } else {
+      guild = message.guild;
    }
-   get(message.guild).then((guild) => {
+   get(guild).then((guild) => {
       guild.ifHasText(ChannelPropery.Job.Confession, (channel) => {
-         if (message.channel.id !== channel.id) return;
-         message.delete();
+         if (message.channel.id !== channel.id) {
+            if (pending.has(author.id)) {
+               pending.delete(author.id);
+            } else return;
+         }
+         if (message.channel.type !== 'dm') message.delete();
          channel.send(templates.message(message).confession);
       });
    });
