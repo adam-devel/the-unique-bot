@@ -69,6 +69,7 @@ Bot.on('message', (message) => {
          if (guilds.length == 0) return;
          if (guilds.length == 1) {
             guild = guilds[0];
+            pending.set(author.id, { guilds, content: message.content });
          } else {
             channel.send(guilds.map((g, i) => `${i + 1}- ${g.name}`));
             channel.send('choose a server to confess to: ');
