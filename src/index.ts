@@ -4,9 +4,9 @@ import { Manager } from './commands/Manager';
 import { joke, compliment, purge, populate, kick, image } from './commands/commands';
 import { logger } from './lib/log';
 import { ChannelPropery } from './firestore/types';
+import { Guild } from 'discord.js';
 // Envirenment Variables
 import { DISCORD_SECRET } from './.secret.json';
-import { Guild } from 'discord.js';
 
 const { info } = logger('Main');
 
